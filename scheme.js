@@ -2,6 +2,7 @@
  * {
  *      id: {type: String}
  *      name: {type: String, required: true}
+ *      password: {type: String, private: true}
  *      intfield: {type: 'int', min:10, max:100, default: 100}
  *      numfield: {type: Number}
  *      createTime: {type: Date}
@@ -42,9 +43,12 @@ function scheme(options) {
   }
   fixOptions();
 
-  function castValue(fieldDefine, value) {
+  function castValue(fieldDefine, value, obj) {
     if(value == null) {
       if(fieldDefine.default) {
+        if(typeof fieldDefine.default == 'function') {
+          return fieldDefine.default(obj);
+        }
         return fieldDefine.default;
       }
       return null;
@@ -83,15 +87,7 @@ function scheme(options) {
     for(var field in options) {
       fieldDefine = options[field];
       value = obj[field];
-      if(!value) {
-        if(fieldDefine.required) {
-          throw new Error('field ' + field + ' is required');
-        }
-        if(!fieldDefine.default) {
-          continue;
-        }
-      }
-      value = castValue(fieldDefine, value);
+      value = castValue(fieldDefine, value, obj);
       validateValue(fieldDefine, value, field);
       if(value != null) {
         // ignore null value
@@ -105,8 +101,23 @@ function scheme(options) {
    * filter private fields
    *
    */
-  function filter() {
-
+  function filter(obj) {
+    var result = {}, fieldDefine, value;
+    for(var field in options) {
+      fieldDefine = options[field];
+      value = obj[field];
+      if(!fieldDefine.private && value !== undefined) {
+        result[field] = value;
+      }
+    }
+    return result;
   }
 
+
+  return {
+    normalize: normalize
+  , filter: filter
+  }
 }
+
+var exports = module.exports = scheme;

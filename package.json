@@ -1,0 +1,31 @@
+{
+  "name": "formconv",
+  "version": "0.0.1",
+  "description": "A utility function to convert and validate form post data, and filter secure data from data base object",
+  "main": "scheme.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "expect.js": "^0.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/guileen/node-formconv.git"
+  },
+  "keywords": [
+    "validtor",
+    "scheme",
+    "convert"
+  ],
+  "author": "guileen@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/guileen/node-formconv/issues"
+  },
+  "homepage": "https://github.com/guileen/node-formconv"
+}
