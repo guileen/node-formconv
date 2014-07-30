@@ -9,7 +9,8 @@ describe('userScheme', function(){
         height: Number,
         reqDate: {type: Date, required: true, default: function(obj) {return new Date()}},
         reqString: {type: String, required: true},
-        reqNumber: {type: Number, required: true}
+        reqNumber: {type: Number, required: true},
+        array: Array
     })
 
     it('should normalize object', function() {
@@ -20,6 +21,7 @@ describe('userScheme', function(){
           reqDate: null,
           reqString: 'abcde',
           reqNumber: '50',
+          array: [],
           nonExist: 'not exists'
         }
         obj = userModel.normalize(src)
@@ -30,6 +32,7 @@ describe('userScheme', function(){
         expect(obj.height).to.be(undefined)
         expect(obj.nonExist).to.be(undefined)
         expect(obj.reqDate).to.be.a(Date)
+        expect(obj.array).to.be.a(Array)
         expect(obj.reqNumber).to.be.a('number')
     })
 
@@ -41,6 +44,7 @@ describe('userScheme', function(){
           reqDate: new Date('1998-01-01'),
           reqString: 'abcde',
           reqNumber: 50,
+          array: [],
           nonExist: 'not exists'
         }
         var obj = userModel.filter(src)
@@ -50,6 +54,7 @@ describe('userScheme', function(){
         expect(obj.height).to.be(undefined)
         expect(obj.reqDate).to.be.ok()
         expect(obj.reqString).to.be.ok()
+        expect(obj.array).to.be.a(Array)
         expect(obj.nonExist).to.be(undefined)
         expect(obj.password).to.be(undefined)
     })

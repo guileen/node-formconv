@@ -36,8 +36,8 @@ function scheme(options) {
       }
       var type = options[field].type;
       var typeType = typeof type;
-      if(type != 'int' && type != String && type != Number && type != Date) {
-        throw new Error('wront type ' + type + ' for field ' + field);
+      if(type != 'int' && type != String && type != Number && type != Date && type != Array) {
+        throw new Error('wrong type ' + type + ' for field ' + field);
       }
     }
   }
@@ -66,6 +66,9 @@ function scheme(options) {
      case Date:
       return new Date(value);
       break;
+     case Array:
+      if(value instanceof Array) return value
+      return null
      default:
       throw new Error('not support type '+ fieldDefine.type)
     }
