@@ -117,6 +117,8 @@ function scheme(options) {
   return {
     normalize: normalize
   , filter: filter
+    // -----
+  , parse: normalize
   }
 }
 
