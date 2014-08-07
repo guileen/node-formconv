@@ -36,7 +36,7 @@ function scheme(options) {
       }
       var type = options[field].type;
       var typeType = typeof type;
-      if(type != 'int' && type != String && type != Number && type != Date && type != Array) {
+      if(type != 'int' && type != String && type != Number && type != Date && type != Array && type != Boolean) {
         throw new Error('wrong type ' + type + ' for field ' + field);
       }
     }
@@ -56,16 +56,14 @@ function scheme(options) {
     switch(fieldDefine.type) {
      case 'int':
       return parseInt(value);
-      break;
      case Number:
       return Number(value);
-      break;
+     case Boolean:
+      return (value == 'true' || value == true || value == 1 || value == '1' || value == 'yes')
      case String:
       return value;
-      break;
      case Date:
       return new Date(value);
-      break;
      case Array:
       if(value instanceof Array) return value
       return null

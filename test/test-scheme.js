@@ -7,6 +7,8 @@ describe('userScheme', function(){
         password: {type: String, private: true},
         birth: Date,
         height: Number,
+        isBoy: Boolean,
+        isGirl: Boolean,
         reqDate: {type: Date, required: true, default: function(obj) {return new Date()}},
         reqString: {type: String, required: true},
         reqNumber: {type: Number, required: true},
@@ -19,6 +21,8 @@ describe('userScheme', function(){
           password: 'pass',
           birth: '2014-05-06',
           reqDate: null,
+          isBoy: '1',
+          isGirl: 'false',
           reqString: 'abcde',
           reqNumber: '50',
           array: [],
@@ -34,6 +38,8 @@ describe('userScheme', function(){
         expect(obj.reqDate).to.be.a(Date)
         expect(obj.array).to.be.a(Array)
         expect(obj.reqNumber).to.be.a('number')
+        expect(obj.isBoy).to.be.true
+        expect(obj.isGirl).to.be.false
     })
 
     it('should filter object', function() {
