@@ -66,6 +66,12 @@ function scheme(options) {
       return new Date(value);
      case Array:
       if(value instanceof Array) return value
+      if(typeof value == 'string') {
+        if(value[0] == '[' && value[value.length - 1] == ']') {
+          return JSON.parse(value)
+        }
+        return value.split(',').map(function(s) {return s.trim()})
+      }
       return null
      case Object:
       return value

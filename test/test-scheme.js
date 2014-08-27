@@ -12,7 +12,9 @@ describe('userScheme', function(){
         reqDate: {type: Date, required: true, default: function(obj) {return new Date()}},
         reqString: {type: String, required: true},
         reqNumber: {type: Number, required: true},
-        array: Array
+        array: Array,
+        array1: Array,
+        array2: Array
     })
 
     it('should normalize object', function() {
@@ -25,7 +27,9 @@ describe('userScheme', function(){
           isGirl: 'false',
           reqString: 'abcde',
           reqNumber: '50',
-          array: [],
+          array: [1,2,3],
+          array1: '[1, 2, 3]',
+          array2: '1, 2, 3',
           nonExist: 'not exists'
         }
         obj = userModel.normalize(src)
@@ -37,6 +41,11 @@ describe('userScheme', function(){
         expect(obj.nonExist).to.be(undefined)
         expect(obj.reqDate).to.be.a(Date)
         expect(obj.array).to.be.a(Array)
+        expect(obj.array1).to.be.a(Array)
+        expect(obj.array2).to.be.a(Array)
+        expect(obj.array[1]).to.eql(2)
+        expect(obj.array1[1]).to.eql(2)
+        expect(obj.array2[1]).to.eql(2)
         expect(obj.reqNumber).to.be.a('number')
         expect(obj.isBoy).to.be.true
         expect(obj.isGirl).to.be.false
