@@ -67,6 +67,7 @@ function scheme(options) {
      case Array:
       if(value instanceof Array) return value
       if(typeof value == 'string') {
+        if(value=="") return []
         if(value[0] == '[' && value[value.length - 1] == ']') {
           return JSON.parse(value)
         }
