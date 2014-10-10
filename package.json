@@ -1,6 +1,6 @@
 {
   "name": "formconv",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A utility function to convert and validate form post data, and filter secure data from data base object",
   "main": "scheme.js",
   "directories": {
