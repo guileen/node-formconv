@@ -57,7 +57,11 @@ function scheme(options) {
      case 'int':
       return parseInt(value);
      case Number:
-      return Number(value);
+      var value = Number(value);
+      if(value == NaN) {
+        throw new Error();
+      }
+      return value;
      case Boolean:
       return (value == 'true' || value == true || value == 1 || value == '1' || value == 'yes')
      case String:
@@ -75,6 +79,12 @@ function scheme(options) {
       }
       return null
      case Object:
+      if(typeof value == 'string') {
+        if(value == '') return null
+        if(value[0] == '{' && value[value.length - 1] == '}') {
+          return JSON.parse(value)
+        }
+      }
       return value
      default:
       throw new Error('not support type '+ fieldDefine.type)

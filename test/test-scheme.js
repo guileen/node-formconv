@@ -12,6 +12,7 @@ describe('userScheme', function(){
         reqDate: {type: Date, required: true, default: function(obj) {return new Date()}},
         reqString: {type: String, required: true},
         reqNumber: {type: Number, required: true},
+        obj1: {type:Object, private: true},
         array: Array,
         array1: Array,
         array2: Array
@@ -27,6 +28,7 @@ describe('userScheme', function(){
           isGirl: 'false',
           reqString: 'abcde',
           reqNumber: '50',
+          obj1: '{"hello":"world"}',
           array: [1,2,3],
           array1: '[1, 2, 3]',
           array2: '1, 2, 3',
@@ -40,6 +42,7 @@ describe('userScheme', function(){
         expect(obj.height).to.be(undefined)
         expect(obj.nonExist).to.be(undefined)
         expect(obj.reqDate).to.be.a(Date)
+        expect(obj.obj1.hello).to.be('world')
         expect(obj.array).to.be.a(Array)
         expect(obj.array1).to.be.a(Array)
         expect(obj.array2).to.be.a(Array)
@@ -69,6 +72,7 @@ describe('userScheme', function(){
         expect(obj.height).to.be(undefined)
         expect(obj.reqDate).to.be.ok()
         expect(obj.reqString).to.be.ok()
+        expect(obj.obj1).to.be(undefined)
         expect(obj.array).to.be.a(Array)
         expect(obj.nonExist).to.be(undefined)
         expect(obj.password).to.be(undefined)
